@@ -2,6 +2,8 @@ package io.chengguo.rxjava;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
@@ -11,7 +13,6 @@ import rx.schedulers.Schedulers;
 /**
  * Created by fingerart on 17/3/30.
  */
-
 public class RxScheduler {
 
     @Test
@@ -59,5 +60,44 @@ public class RxScheduler {
                         System.out.println(s);
                     }
                 });
+    }
+
+    @Test
+    public void transfFlatMap() {
+        ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
+        ArrayList<String> group1 = new ArrayList<>();
+        group1.add("group-1-1");
+        group1.add("group-1-2");
+        group1.add("group-1-3");
+        group1.add("group-1-4");
+        arrayLists.add(group1);
+        ArrayList<String> group2 = new ArrayList<>();
+        group2.add("group-2-1");
+        group2.add("group-2-2");
+        group2.add("group-2-3");
+        group2.add("group-2-4");
+        arrayLists.add(group2);
+
+        Observable.from(arrayLists).flatMap(new Func1<ArrayList<String>, Observable<?>>() {
+            @Override
+            public Observable<String> call(ArrayList<String> group) {
+                return Observable.from(group);
+            }
+        }).subscribe(new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+
+            }
+        });
     }
 }
