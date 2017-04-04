@@ -3,10 +3,12 @@ package io.chengguo.rxjava;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -97,6 +99,42 @@ public class RxScheduler {
             @Override
             public void onNext(Object o) {
 
+            }
+        });
+    }
+
+
+    @Test
+    public void single() {
+        Observable.just("hello", "world").single(new Func1<String, Boolean>() {
+            @Override
+            public Boolean call(String s) {
+                return s.equalsIgnoreCase("hello");
+            }
+        }).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                System.out.println("s = [" + s + "]");
+            }
+        });
+    }
+
+    @Test
+    public void defer() {
+        Observable.defer(new Func0<Observable<String>>() {
+            @Override
+            public Observable<String> call() {
+                return null;
+            }
+        }).subscribe();
+    }
+
+    @Test
+    public void intervel() {
+        Observable.interval(1, TimeUnit.SECONDS, Schedulers.immediate()).subscribe(new Action1<Long>() {
+            @Override
+            public void call(Long aLong) {
+                System.out.println("aLong = [" + aLong + "]");
             }
         });
     }
