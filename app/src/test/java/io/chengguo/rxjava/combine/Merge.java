@@ -1,29 +1,22 @@
-package io.chengguo.rxjava.filter;
+package io.chengguo.rxjava.combine;
 
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
-
 import rx.Observable;
-import rx.Scheduler;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
- * 定期发射Observable最近发射的数据项
+ * 合并多个Observables的发射物
  */
-public class Sample {
+public class Merge {
 
     /**
-     * Sample操作符定时查看一个Observable，然后发射自上次采样以来它最近发射的数据。
-     *
-     * @throws InterruptedException
+     * 使用Merge操作符你可以将多个Observables的输出合并，就好像它们是一个单个的Observable一样。
      */
     @Test
-    public void sample() throws InterruptedException {
+    public void merge() {
         Observable
-                .just(1, 2, 3, 4, 5)
-                .sample(1, TimeUnit.MILLISECONDS)
+                .merge(Observable.just(1, 2, 3), Observable.just(4, 5, 6))
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {
@@ -33,13 +26,13 @@ public class Sample {
     }
 
     /**
-     * sample的别名
+     * 同上
      */
     @Test
-    public void throttleLast() {
+    public void mergeWith() {
         Observable
-                .just(1, 2, 3, 4, 5)
-                .throttleLast(1, TimeUnit.MILLISECONDS)
+                .just(1, 2, 3)
+                .mergeWith(Observable.just(4, 5, 6))
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {

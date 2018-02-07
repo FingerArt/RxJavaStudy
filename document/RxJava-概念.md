@@ -47,13 +47,12 @@ Observer、Subscriber是同一个概念，在源码中，Observer被适配成了
 - AndroidSchedulers.mainThread(): Android中的主线程。
 
 `subscribeOn` 指定被观察者发生的线程
-`onserveOn` 指定观察者发生的线程
+`observeOn` 指定观察者发生的线程
 
 ## RxJava 中的几个“对象"
 
 OnSubscribe           被观察者-事件发出
 Subscriber(Observer)  观察者-事件接收
-
 
 ## 转换
 
@@ -68,5 +67,3 @@ Observable什么时候发射数据取决于Observable的实现；
 一个”冷“的Observable会一直等待，直到有观察者订阅它才开始发射数据，因此这个观察者可以确保会收到整个数据队列。
 
 在一些ReactiveX实现里，还存在一种Connectable的Observable，不管有没有观察者订阅它，都不会发射数据，除非Connect方法被调用。
-
-

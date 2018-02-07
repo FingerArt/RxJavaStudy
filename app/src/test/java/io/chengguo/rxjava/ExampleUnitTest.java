@@ -69,7 +69,7 @@ public class ExampleUnitTest {
          * 快捷创建事件队列
          */
         Observable.just("str1", "str2", "str3");
-        Observable.from(new Integer[]{1,2,3});
+        Observable.from(new Integer[]{1, 2, 3});
 
     }
 }

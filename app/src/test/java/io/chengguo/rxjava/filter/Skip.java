@@ -2,28 +2,25 @@ package io.chengguo.rxjava.filter;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.Scheduler;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
- * 定期发射Observable最近发射的数据项
+ * 抑制Observable发射的前N项数据
  */
-public class Sample {
+public class Skip {
 
     /**
-     * Sample操作符定时查看一个Observable，然后发射自上次采样以来它最近发射的数据。
-     *
-     * @throws InterruptedException
+     * 使用Skip操作符，你可以忽略Observable'发射的前N项数据，只保留之后的数据。
      */
     @Test
-    public void sample() throws InterruptedException {
+    public void skip() {
         Observable
-                .just(1, 2, 3, 4, 5)
-                .sample(1, TimeUnit.MILLISECONDS)
+                .just(1, 2, 3, 4, 5, 6)
+                .skip(3)
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {
@@ -33,13 +30,13 @@ public class Sample {
     }
 
     /**
-     * sample的别名
+     * 丢弃原始Observable开始的那段时间发射的数据，时长和时间单位通过参数指定。
      */
     @Test
-    public void throttleLast() {
+    public void skip2() {
         Observable
-                .just(1, 2, 3, 4, 5)
-                .throttleLast(1, TimeUnit.MILLISECONDS)
+                .from(Arrays.asList(1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6))
+                .skip(1, TimeUnit.MILLISECONDS)
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {

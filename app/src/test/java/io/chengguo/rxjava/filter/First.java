@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.internal.util.UtilityFunctions;
@@ -27,7 +28,7 @@ public class First {
                     public void call(Integer integer) {
                         System.out.println("subscribe = [" + integer + "]");
                     }
-                });
+                }).unsubscribe();
     }
 
     /**
