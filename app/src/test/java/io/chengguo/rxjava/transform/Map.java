@@ -13,7 +13,8 @@ public class Map {
 
     @Test
     public void map() {
-        Observable.just(1, 2)
+        Observable
+                .just(1, 2)
                 .map(new Func1<Integer, Object>() {
                     @Override
                     public Object call(Integer integer) {

@@ -21,14 +21,16 @@ public class Zip {
     @Test
     public void zip() {
         Observable
-                .zip(Observable.just(1, 2, 3), Observable.just(3, 4),
+                .zip(Observable.just(1, 2, 3),
+                        Observable.just(3, 4),
                         new Func2<Integer, Integer, Integer>() {
                             @Override
                             public Integer call(Integer i1, Integer i2) {
                                 System.out.println("i1 = [" + i1 + "], i2 = [" + i2 + "]");
                                 return i1 + i2;
                             }
-                        })
+                        }
+                )
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {
@@ -51,7 +53,8 @@ public class Zip {
                                 System.out.println("i1 = [" + i1 + "], i2 = [" + i2 + "]");
                                 return i1 + i2;
                             }
-                        })
+                        }
+                )
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {

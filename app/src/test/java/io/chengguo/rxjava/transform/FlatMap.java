@@ -17,18 +17,21 @@ public class FlatMap {
 
     @Test
     public void flatMap() {
-        Observable.from(createArrayLists()).flatMap(new Func1<ArrayList<String>, Observable<String>>() {
-            @Override
-            public Observable<String> call(ArrayList<String> arrayList) {
-                System.out.println("observable = [" + arrayList + "]");
-                return Observable.from(arrayList);
-            }
-        }).subscribe(new Action1<String>() {
-            @Override
-            public void call(String String) {
-                System.out.println("subscribe = [" + String + "]");
-            }
-        });
+        Observable
+                .from(createArrayLists())
+                .flatMap(new Func1<ArrayList<String>, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(ArrayList<String> arrayList) {
+                        System.out.println("observable = [" + arrayList + "]");
+                        return Observable.from(arrayList);
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String String) {
+                        System.out.println("subscribe = [" + String + "]");
+                    }
+                });
     }
 
     /**
