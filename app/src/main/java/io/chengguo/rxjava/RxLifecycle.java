@@ -5,8 +5,10 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 
-import rx.Observable;
-import rx.Subscriber;
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.rxjava3.core.Observable;
+
 
 public class RxLifecycle<T> implements Observable.Transformer<T, T> {
     private final RxLifecycleOperator<T> rxLifecycle;
@@ -42,7 +44,7 @@ public class RxLifecycle<T> implements Observable.Transformer<T, T> {
             return new Subscriber<T>() {
                 @Override
                 public void onCompleted() {
-                    child.onCompleted();
+                    child.onComplete();
                 }
 
                 @Override
